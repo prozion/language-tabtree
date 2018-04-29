@@ -1,0 +1,30 @@
+racket
+	comment
+		line
+			semicolon
+	constant
+		numeric
+		keyword
+	cursor
+	entity
+		name
+			function ; (define (myfunction ...))
+	keyword
+		control ; (cond ...)
+		specialword
+	markup
+		other
+			function ; (myfunction ...)
+	meta
+		declaration
+			variable ; (define a ...)
+	string
+		quoted
+			double
+		unquoted
+			herestring
+	support
+			function
+				module ; (require ...)
+				definition ; (define ...)
+				general ; (string-append ...)

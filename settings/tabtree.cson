@@ -1,0 +1,6 @@
+".source.tabtree":
+  editor:
+    commentStart: ";"
+  whitespace: # we use trailing tab to discern superclass from a class
+    ensureSingleTrailingNewline: false
+    removeTrailingWhitespace: false
