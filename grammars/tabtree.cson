@@ -27,6 +27,18 @@ patterns: [
     include: "#date"
   }
   {
+    include: "#time"
+  }
+  {
+    include: "#place"
+  }
+  {
+    include: "#money"
+  }
+  {
+    include: "#percentage"
+  }
+  {
     include: "#specialword"
   }
   {
@@ -48,7 +60,7 @@ patterns: [
     include: "#constants"
   }
   {
-    include: "#sbgn_lisp"
+    include: "#code"
   }
 ]
 repository:
@@ -56,7 +68,7 @@ repository:
     patterns: [
       {
         name: "keyword.control"
-        match: "(\\b[^\"\t ]+?:)"
+        match: "(?<=\\s)(\\-?[^\"\t ]+?:)"
       }
     ]
   comment:
@@ -73,8 +85,13 @@ repository:
     patterns: [
       {
         name: "constant.numeric.racket"
-        match: "(?<=:|,|(\\s|:)-)([<~>]?[\\-+]?[0-9\\.]+)(?=[\\s,])"
+        match: "(?<=:|,|-|(\\s|:)-)([<~>]?[\\-+]?[0-9\\.]+)(?=[\\s,-])"
         # match: "(?<=[\\(\\s])((#e|#i)?-?[0-9]+(\\.[0-9]+)?|(#x)[0-9a-fA-F]+|(#o)[0-7]+|(#b)[01]+)(?=[\\s;()'\",\\[\\]])"
+      }
+      # pull ups
+      {
+        name: "constant.numeric.racket"
+        match: "(?<=:|,|(\\s|:)-)([<~>]?[\\-+]?[0-9ul\\.]+)(?=[\\s,])"
       }
     ]
   hyperlink:
@@ -82,7 +99,20 @@ repository:
       {
         name: "markup.underline.link"
         # match: "(?<=\")http.*?(?=\")"
-        match: "(?<=url:).*?(?=\\s)|(?<=wikipedia:).*?(?=\\s)"
+        match: "(?<=url:).*?(?=\\s)|\
+                (?<=vkontakte:).*?(?=\\s)|\
+                (?<=vk:).*?(?=\\s)|\
+                (?<=facebook:).*?(?=\\s)|\
+                (?<=fb:).*?(?=\\s)|\
+                (?<=odnoklassniki:).*?(?=\\s)|\
+                (?<= ok:).*?(?=\\s)|\
+                (?<=moikrug:).*?(?=\\s)|\
+                (?<=my-mail:).*?(?=\\s)|\
+                (?<=gplus:).*?(?=\\s)|\
+                (?<=twitter:).*?(?=\\s)|\
+                (?<=linkedin:).*?(?=\\s)|\
+                (?<=email:).*?(?=\\s)|\
+                (?<=wikipedia:).*?(?=\\s)"
         # match: "(?<=\")http//[A-Za-z0-9\-/.]+?(?=\")"
         # match: "(?<=:)[A-Za-z0-9\-]+\\.[A-Za-z0-9/.\-]+\\.(ru|by|ua|no|se|de|com|net|org|us|uk|info|io)"
       }
@@ -101,12 +131,60 @@ repository:
         match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*)\\t$"
       }
     ]
+  date:
+    patterns: [
+      {
+        # name: "string.quoted.double.racket"
+        name: "support.function.general.racket"
+        match: "(?<=(:|,|-|=))~?(((BC|AD)-)?([0-9x]{2}\\.)?((([0x][1-9x])|([1x][012x]))\\.)?[0-9x]{4}\\??|((17|18|19|20)[0-9x]{2})\\??|(BC|AD)-[0-9x]{1,4})(?=(\\s|,|-))"
+      }
+      # for date as a key:
+      {
+        name: "support.function.general.racket"
+        match: "(?<=\t)(((BC|AD)-)?\
+                    ([0-9x]{2}(\\+[1-9y]{1,2})?\\.)?\
+                    ((([0x][1-9x])|([1x][012x]))\\??\\.)?\
+                    [0-9x]{4}|((17|18|19|20)[0-9x]{2})|(BC|AD)-\\d{1,4})\
+                (\\?|~|>)?(?=\\s)"
+      }
+    ]
+  time:
+    patterns: [
+      {
+        name: "meta.declaration.variable"
+        # name: "support.function.general.racket"
+        match: "~?([0-9x]?[0-9x]:)?[0-6x]?[0-9x]:([0-5x][0-9x])?"
+      }
+    ]
+  place:
+    patterns: [
+      {
+        name: "boolean.language.constant"
+        match: "(?<=city:).*?(?=\\s)|\
+                (?<=place:).*?(?=\\s)"
+      }
+    ]
+  money:
+    patterns: [
+      {
+        name: "racket.constant.keyword"
+        match: "[~<>]?[0-9][0-9\\-,.]*([BMK]|[BMK]?(NOK|EUR|RUB|[$RE]))"
+      }
+    ]
+  percentage:
+    patterns: [
+      {
+        name: "entity.name.function.racket"
+        match: "[~<>]?[0-9\-]+%%?"
+      }
+    ]
   category:
     patterns: [
       {
         name: "keyword.control.racket"
         # match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_+\\-\\(\\)/]*?)(\\s+\\b|$)"
-        match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_+\\-\\(\\)/]*?)(?=(\\s+\\b|$|\\s+;))"
+        match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        # match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{1,}?)(?=(\\s+\\b|\\s*\\.|$|\\s+\"|\\s+;))"
       }
     ]
   object:
@@ -119,33 +197,15 @@ repository:
   specialword:
     patterns: [
       {
-        # name: "meta.declaration.variable" ; red
         name: "support.function.general.racket"
-        match: "<(exists|t|null|unique|others|none|many|gen-id|\\.|\\?)>"
+        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|many|current|self|gen-id|na|etc|\\.|\\?)>"
       }
     ]
-  date:
-    patterns: [
-      {
-        # name: "meta.declaration.variable"
-        name: "constant.numeric.racket"
-        match: "(?<=:)~?(((BC|AD)-)?([0-9x]{2}\\.)?((([0x][1-9x])|([1x][012x]))\\.)?[0-9x]{4}|((17|18|19|20)\\d{2})|(BC|AD)-\\d{1,4})(?=\\s)"
-      }
-      # for date as a key:
-      {
-        name: "constant.numeric.racket"
-        match: "(?<=\t)(((BC|AD)-)?\
-                    ([0-9x]{2}(\\+[1-9y]{1,2})?\\.)?\
-                    ((([0x][1-9x])|([1x][012x]))\\??\\.)?\
-                    [0-9x]{4}|((17|18|19|20)\\d{2})|(BC|AD)-\\d{1,4})\
-                (\\?|~|>)?(?=\\s)"
-      }
-    ]
-  sbgn_lisp:
+  code:
     patterns: [
       {
         name: "meta.declaration.variable"
-        # name: "markup.tabtree.sbgn_lisp"
-        match: "`.*`"
+        # name: "markup.tabtree.code"
+        match: "`.*?`"
       }
     ]

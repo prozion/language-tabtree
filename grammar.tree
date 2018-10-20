@@ -1,4 +1,7 @@
 racket
+	boolean
+		language
+			constant
 	comment
 		line
 			semicolon
