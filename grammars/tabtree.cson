@@ -100,6 +100,7 @@ repository:
         name: "markup.underline.link"
         # match: "(?<=\")http.*?(?=\")"
         match: "(?<=url:).*?(?=\\s)|\
+                (?<=blog:).*?(?=\\s)|\
                 (?<=vkontakte:).*?(?=\\s)|\
                 (?<=vk:).*?(?=\\s)|\
                 (?<=facebook:).*?(?=\\s)|\
@@ -142,10 +143,10 @@ repository:
       {
         name: "support.function.general.racket"
         match: "(?<=\t)(((BC|AD)-)?\
-                    ([0-9x]{2}(\\+[1-9y]{1,2})?\\.)?\
-                    ((([0x][1-9x])|([1x][012x]))\\??\\.)?\
-                    [0-9x]{4}|((17|18|19|20)[0-9x]{2})|(BC|AD)-\\d{1,4})\
-                (\\?|~|>)?(?=\\s)"
+										([0-9x]{2}(\\+[1-9y]{1,2})?\\.)?\
+										((([0x][1-9x])|([1x][012x]))\\??\\.)?\
+										[0-9x]{4}|((17|18|19|20)[0-9x]{2})|(BC|AD)-\\d{1,4})\
+								(\\?|~|>)?(?=\\s)"
       }
     ]
   time:
@@ -160,7 +161,8 @@ repository:
     patterns: [
       {
         name: "boolean.language.constant"
-        match: "(?<=city:).*?(?=\\s)|\
+        match: "(?<=city:).*?(?=\\s)|(?<=city-en:).*?(?=\\s)|\
+                (?<=town:).*?(?=\\s)|\
                 (?<=place:).*?(?=\\s)"
       }
     ]
@@ -184,7 +186,12 @@ repository:
         name: "keyword.control.racket"
         # match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_+\\-\\(\\)/]*?)(\\s+\\b|$)"
         match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
-        # match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{1,}?)(?=(\\s+\\b|\\s*\\.|$|\\s+\"|\\s+;))"
+        # match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;|\\s+[><=]))" ; with 'foobar >w:75' remains category
+      }
+      # for keyword with dots (makes possible to differ category from a date)
+      {
+        name: "keyword.control.racket"
+        match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{2,}[A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
       }
     ]
   object:
