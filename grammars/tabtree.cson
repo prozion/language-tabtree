@@ -135,9 +135,13 @@ repository:
   date:
     patterns: [
       {
-        # name: "string.quoted.double.racket"
         name: "support.function.general.racket"
         match: "(?<=(:|,|-|=))~?(((BC|AD)-)?([0-9x]{2}\\.)?((([0x][1-9x])|([1x][012x]))\\.)?[0-9x]{4}\\??|((17|18|19|20)[0-9x]{2})\\??|(BC|AD)-[0-9x]{1,4})(?=(\\s|,|-))"
+      }
+      # date with seasons
+      {
+        name: "support.function.general.racket"
+        match: "(winter|spring|summer|autumn)\\.[0-9x]{1,4}(?=(\\s|,|-))"
       }
       # for date as a key:
       {
@@ -154,7 +158,7 @@ repository:
       {
         name: "meta.declaration.variable"
         # name: "support.function.general.racket"
-        match: "~?([0-9x]?[0-9x]:)?[0-6x]?[0-9x]:([0-5x][0-9x])?"
+        match: "~?([0-9x]?[0-9x]:)?[0-6x]?[0-9x]:([0-5x][0-9x])?(w|h|mo|tu|we|th|fr|sa|su|-)*"
       }
     ]
   place:
@@ -170,7 +174,7 @@ repository:
     patterns: [
       {
         name: "racket.constant.keyword"
-        match: "[~<>]?[0-9][0-9\\-,.]*([BMK]|[BMK]?(NOK|EUR|RUB|[$RE]))"
+        match: "[~<>]?[0-9][0-9\\-,.]*?[0-9]([BMK]|[BMK]?(NOK|EUR|RUB|[$RE]))"
       }
     ]
   percentage:
