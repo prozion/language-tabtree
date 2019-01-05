@@ -113,6 +113,7 @@ repository:
                 (?<=twitter:).*?(?=\\s)|\
                 (?<=linkedin:).*?(?=\\s)|\
                 (?<=email:).*?(?=\\s)|\
+                (?<=gmail:).*?(?=\\s)|\
                 (?<=wikipedia:).*?(?=\\s)"
         # match: "(?<=\")http//[A-Za-z0-9\-/.]+?(?=\")"
         # match: "(?<=:)[A-Za-z0-9\-]+\\.[A-Za-z0-9/.\-]+\\.(ru|by|ua|no|se|de|com|net|org|us|uk|info|io)"
@@ -167,6 +168,7 @@ repository:
         name: "boolean.language.constant"
         match: "(?<=city:).*?(?=\\s)|(?<=city-en:).*?(?=\\s)|\
                 (?<=town:).*?(?=\\s)|\
+                (?<=hq:).*?(?=\\s)|\
                 (?<=place:).*?(?=\\s)"
       }
     ]
