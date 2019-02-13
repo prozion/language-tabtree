@@ -100,6 +100,7 @@ repository:
         name: "markup.underline.link"
         # match: "(?<=\")http.*?(?=\")"
         match: "(?<=url:).*?(?=\\s)|\
+                (?<=file:).*?(?=\\s)|\
                 (?<=blog:).*?(?=\\s)|\
                 (?<=vkontakte:).*?(?=\\s)|\
                 (?<=vk:).*?(?=\\s)|\
@@ -191,8 +192,13 @@ repository:
       {
         name: "keyword.control.racket"
         # match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_+\\-\\(\\)/]*?)(\\s+\\b|$)"
-        match: "^[\\t]*?([a-zа-я0-9.][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        match: "^[\\t]*?([a-zа-я.][A-Za-zА-Яа-яё0-9_\\-\\(\\)\\?/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
         # match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;|\\s+[><=]))" ; with 'foobar >w:75' remains category
+      }
+      # if starts with a digit
+      {
+        name: "keyword.control.racket"
+        match: "^[\\t]*?([0-9][a-zА-Яа-яё0-9_\\-\\(\\)\\?/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
       }
       # for keyword with dots (makes possible to differ category from a date)
       {
@@ -206,12 +212,17 @@ repository:
         name: "source.tabtree"
         match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)(\\s+|\\s+\\b|$)"
       }
+      # if starts with a digit
+      {
+        name: "source.tabtree"
+        match: "^[\\t]*?([0-9][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)(\\s+|\\s+\\b|$)"
+      }
     ]
   specialword:
     patterns: [
       {
         name: "support.function.general.racket"
-        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|many|current|self|gen-id|na|etc|\\.|\\?)>"
+        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|many|current|self|gen-id|yes|no|all|na|nothing|project|etc|\\.|\\?)>"
       }
     ]
   code:
