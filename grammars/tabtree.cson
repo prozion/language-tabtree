@@ -5,7 +5,9 @@ comment: '''
 '''
 fileTypes: [
   "tree"
+  "kg"
   "mtree" # tree with multilines
+  "mkg"
 ]
 'firstLineMatch': '^#!\\s*/.*\\bracket'
 foldingStartMarker: '''
@@ -21,7 +23,13 @@ patterns: [
     include: "#comment"
   }
   {
+    include: "#variant"
+  }
+  {
     include: "#hyperlink"
+  }
+  {
+    include: "#speciallink"
   }
   {
     include: "#date"
@@ -51,10 +59,10 @@ patterns: [
     include: "#superclass"
   }
   {
-    include: "#category"
+    include: "#object"
   }
   {
-    include: "#object"
+    include: "#category"
   }
   {
     include: "#constants"
@@ -62,8 +70,18 @@ patterns: [
   {
     include: "#code"
   }
+  {
+    include: "#filepath"
+  }
 ]
 repository:
+  variant:
+    patterns: [
+      {
+        name: "markup.underline boolean.language.constant"
+        match: "^[\\t]*?(->[A-Za-zА-Яа-я0-9_\\-\\(\\)/]+)"
+      }
+    ]
   parameters:
     patterns: [
       {
@@ -94,28 +112,60 @@ repository:
         match: "(?<=:|,|(\\s|:)-)([<~>]?[\\-+]?[0-9ul\\.]+)(?=[\\s,])"
       }
     ]
+  speciallink:
+    patterns: [
+      {
+        name: "meta.declaration.variable"
+        match: "(?<=doi:).*?(?=\\s)|\
+                (?<=special-link:).*?(?=\\s)
+                "
+      }
+    ]
   hyperlink:
     patterns: [
       {
         name: "markup.underline.link"
         # match: "(?<=\")http.*?(?=\")"
-        match: "(?<=url:).*?(?=\\s)|\
-                (?<=file:).*?(?=\\s)|\
-                (?<=blog:).*?(?=\\s)|\
-                (?<=vkontakte:).*?(?=\\s)|\
-                (?<=vk:).*?(?=\\s)|\
+        match: "(?<=blog:).*?(?=\\s)|\
+                (?<=dir:).*?(?=\\s)|\
+                (?<=dtd:).*?(?=\\s)|\
+                (?<=email:).*?(?=\\s)|\
                 (?<=facebook:).*?(?=\\s)|\
                 (?<=fb:).*?(?=\\s)|\
-                (?<=odnoklassniki:).*?(?=\\s)|\
-                (?<= ok:).*?(?=\\s)|\
+                (?<=file:).*?(?=\\s)|\
+                (?<=gitlab:).*?(?=\\s)|\
+                (?<=github:).*?(?=\\s)|\
+                (?<=gmail:).*?(?=\\s)|\
+                (?<=gplus:).*?(?=\\s)|\
+                (?<=is-defined-by:).*?(?=\\s)|\
+                (?<=iri:).*?(?=\\s)|\
+                (?<=insta:).*?(?=\\s)|\
+                (?<=instagram:).*?(?=\\s)|\
                 (?<=moikrug:).*?(?=\\s)|\
                 (?<=my-mail:).*?(?=\\s)|\
-                (?<=gplus:).*?(?=\\s)|\
-                (?<=twitter:).*?(?=\\s)|\
                 (?<=linkedin:).*?(?=\\s)|\
-                (?<=email:).*?(?=\\s)|\
-                (?<=gmail:).*?(?=\\s)|\
-                (?<=wikipedia:).*?(?=\\s)"
+                (?<=odnoklassniki:).*?(?=\\s)|\
+                (?<=ok:).*?(?=\\s)|\
+                (?<=owl:).*?(?=\\s)|\
+                (?<=rdf:).*?(?=\\s)|\
+                (?<=rss:).*?(?=\\s)|\
+                (?<=spec:).*?(?=\\s)|\
+                (?<=strava:).*?(?=\\s)|\
+                (?<=telegram:).*?(?=\\s)|\
+                (?<=tg:).*?(?=\\s)|\
+                (?<=twitter:).*?(?=\\s)|\
+                (?<=twi:).*?(?=\\s)|\
+                (?<=uri:).*?(?=\\s)|\
+                (?<=url:).*?(?=\\s)|\
+                (?<=vk:).*?(?=\\s)|\
+                (?<=vk-old:).*?(?=\\s)|\
+                (?<=vkontakte:).*?(?=\\s)|\
+                (?<=wiki:).*?(?=\\s)|\
+                (?<=wikipedia:).*?(?=\\s)|\
+                (?<=xsd:).*?(?=\\s)|\
+                (?<=xmlns:).*?(?=\\s)|\
+                (?<=youtube:).*?(?=\\s)
+                "
         # match: "(?<=\")http//[A-Za-z0-9\-/.]+?(?=\")"
         # match: "(?<=:)[A-Za-z0-9\-]+\\.[A-Za-z0-9/.\-]+\\.(ru|by|ua|no|se|de|com|net|org|us|uk|info|io)"
       }
@@ -131,14 +181,14 @@ repository:
     patterns: [
       {
         name: "support.function.module.racket"
-        match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*)\\t$"
+        match: "^[\\t]*?([A-Za-zА-Яа-я0-9_\\-\\(\\)/]*)\\t$"
       }
     ]
   date:
     patterns: [
       {
         name: "support.function.general.racket"
-        match: "(?<=(:|,|-|=))~?(((BC|AD)-)?([0-9x]{2}\\.)?((([0x][1-9x])|([1x][012x]))\\.)?[0-9x]{4}\\??|((17|18|19|20)[0-9x]{2})\\??|(BC|AD)-[0-9x]{1,4})(?=(\\s|,|-))"
+        match: "(?<=(:|,|-|=))~?(((BC|AD)-)?([0-9x]{2}\\.)?((([0x][1-9x])|([1x][012x]))\\.)?[0-9x]{4}\\??|((17|18|19|20)[0-9x]{2})\\??|(BC|AD)-[0-9x]{1,4})(?=(\\s|,|:|-))"
       }
       # date with seasons
       {
@@ -167,24 +217,24 @@ repository:
     patterns: [
       {
         name: "boolean.language.constant"
-        match: "(?<=city:).*?(?=\\s)|(?<=city-en:).*?(?=\\s)|\
-                (?<=town:).*?(?=\\s)|\
-                (?<=hq:).*?(?=\\s)|\
-                (?<=place:).*?(?=\\s)"
+        match: "(?<=city:).*?(?=\\s|:)|(?<=city-en:).*?(?=\\s)|\
+                (?<=town:).*?(?=\\s|:)|\
+                (?<=hq:).*?(?=\\s|:)|\
+                (?<=place:).*?(?=\\s|:)"
       }
     ]
   money:
     patterns: [
       {
         name: "racket.constant.keyword"
-        match: "[~<>]?[0-9][0-9\\-,.]*?[0-9]([BMK]|[BMK]?(NOK|EUR|RUB|[$RE]))"
+        match: "[~<>]?[0-9][0-9\\-,.]*?[0-9]([BMK]|[BMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
       }
     ]
   percentage:
     patterns: [
       {
         name: "entity.name.function.racket"
-        match: "[~<>]?[0-9\-]+%%?"
+        match: "[~<>]?[0-9.\-]+%%?"
       }
     ]
   category:
@@ -192,37 +242,43 @@ repository:
       {
         name: "keyword.control.racket"
         # match: "^[\\t]*?([a-zа-я][A-Za-zА-Яа-яё0-9_+\\-\\(\\)/]*?)(\\s+\\b|$)"
-        match: "^[\\t]*?([a-zа-я.][A-Za-zА-Яа-яё0-9_\\-\\(\\)\\?/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        match: "^[\\t]*?([_a-zа-я.][A-Za-zА-Яа-яё0-9_\\-\\(\\)\\?/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+\+|\\s+;))"
         # match: "^[\\t]*?([a-zа-я0-9][A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;|\\s+[><=]))" ; with 'foobar >w:75' remains category
       }
       # if starts with a digit
       {
         name: "keyword.control.racket"
-        match: "^[\\t]*?([0-9][a-zА-Яа-яё0-9_\\-\\(\\)\\?/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        match: "^[\\t]*?([0-9][a-zA-ZА-Яа-яё0-9_\\-\\(\\)\\?/]+?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
       }
       # for keyword with dots (makes possible to differ category from a date)
       {
         name: "keyword.control.racket"
-        match: "^[\\t]*?([a-zа-я.][A-Za-zА-Яа-яё0-9_\\-\\(\\)/]{2,}[A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]{1,}?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        match: "^[\\t]*?([a-zа-я.α-ω][A-Za-zА-Яа-яё0-9_α-ω\\-\\+\\(\\)/]{2,}[A-Za-zА-Яа-яё0-9_.\\-\\(\\)/]+?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+      }
+      # if starting with upper-case letter
+      {
+        name: "keyword.control.racket"
+        match: "^[\\t]*?([A-Za-zА-Яа-яё0-9_\\-\\(\\)\\?\\+/]+?)(?=(\\s$|\\t\\b|\\t;))"
       }
     ]
   object:
     patterns: [
       {
         name: "source.tabtree"
-        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)(\\s+|\\s+\\b|$)"
+        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)( \\b|$)"
       }
       # if starts with a digit
       {
         name: "source.tabtree"
-        match: "^[\\t]*?([0-9][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)(\\s+|\\s+\\b|$)"
+        match: "^[\\t]*?([0-9]+?[A-Za-zА-Яа-я_\\-\\(\\)/]+?)( \\b|$)"
       }
     ]
   specialword:
     patterns: [
       {
         name: "support.function.general.racket"
-        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|many|current|self|gen-id|yes|no|all|na|nothing|project|etc|\\.|\\?)>"
+        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|empty|many|current|start|end|self|gen-id|yes|no|all|na|oos|source|sink|active|inactive|out-of-service|nothing|project|etc|opensource|\\.|\\?)>"
+        # oos = out of service
       }
     ]
   code:
@@ -231,5 +287,13 @@ repository:
         name: "meta.declaration.variable"
         # name: "markup.tabtree.code"
         match: "`.*?`"
+      }
+    ]
+  filepath:
+    patterns: [
+      {
+        name: "meta.declaration.variable"
+        match: "(?<=path:).*?(?=\\s|:)|(?<=city-en:).*?(?=\\s)|\
+                (?<=file:).*?(?=\\s|:)"
       }
     ]
