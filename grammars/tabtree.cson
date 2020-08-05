@@ -8,6 +8,7 @@ fileTypes: [
   "kg"
   "mtree" # tree with multilines
   "mkg"
+  "taxon" # taxonomy
 ]
 'firstLineMatch': '^#!\\s*/.*\\bracket'
 foldingStartMarker: '''
@@ -129,6 +130,7 @@ repository:
         match: "(?<=blog:).*?(?=\\s)|\
                 (?<=dir:).*?(?=\\s)|\
                 (?<=dtd:).*?(?=\\s)|\
+                (?<=dsc:).*?(?=\\s)|\
                 (?<=email:).*?(?=\\s)|\
                 (?<=facebook:).*?(?=\\s)|\
                 (?<=fb:).*?(?=\\s)|\
@@ -139,10 +141,12 @@ repository:
                 (?<=gplus:).*?(?=\\s)|\
                 (?<=is-defined-by:).*?(?=\\s)|\
                 (?<=iri:).*?(?=\\s)|\
+                (?<=imports:).*?(?=\\s)|\
                 (?<=insta:).*?(?=\\s)|\
                 (?<=instagram:).*?(?=\\s)|\
                 (?<=moikrug:).*?(?=\\s)|\
                 (?<=my-mail:).*?(?=\\s)|\
+                (?<=ns:).*?(?=\\s)|\
                 (?<=linkedin:).*?(?=\\s)|\
                 (?<=odnoklassniki:).*?(?=\\s)|\
                 (?<=ok:).*?(?=\\s)|\
@@ -164,6 +168,7 @@ repository:
                 (?<=wikipedia:).*?(?=\\s)|\
                 (?<=xsd:).*?(?=\\s)|\
                 (?<=xmlns:).*?(?=\\s)|\
+                (?<=yt:).*?(?=\\s)|\
                 (?<=youtube:).*?(?=\\s)
                 "
         # match: "(?<=\")http//[A-Za-z0-9\-/.]+?(?=\")"
@@ -227,7 +232,7 @@ repository:
     patterns: [
       {
         name: "racket.constant.keyword"
-        match: "[~<>]?[0-9][0-9\\-,.]*?[0-9]([BMK]|[BMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
+        match: "[~<>]?[0-9]([0-9\\-,.]*?[0-9])?([BMK]|[BMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
       }
     ]
   percentage:
