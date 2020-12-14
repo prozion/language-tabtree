@@ -131,6 +131,7 @@ repository:
                 (?<=dir:).*?(?=\\s)|\
                 (?<=dtd:).*?(?=\\s)|\
                 (?<=dsc:).*?(?=\\s)|\
+                (?<=doc:).*?(?=\\s)|\
                 (?<=email:).*?(?=\\s)|\
                 (?<=facebook:).*?(?=\\s)|\
                 (?<=fb:).*?(?=\\s)|\
@@ -232,7 +233,7 @@ repository:
     patterns: [
       {
         name: "racket.constant.keyword"
-        match: "[~<>]?[0-9]([0-9\\-,.]*?[0-9])?([BMK]|[BMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
+        match: "[~<>]?[0-9]([0-9\\-,.]*?[0-9])?([GBMK]|[GBMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
       }
     ]
   percentage:
