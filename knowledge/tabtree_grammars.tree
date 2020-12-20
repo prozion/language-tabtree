@@ -1,0 +1,24 @@
+; sample file for tabtree syntax coloring
+tabtree
+	subject predicate:object
+		category
+		Instance
+		supercategory	
+	predicate
+	object
+		code hs:`sqrt . (* 3) $ 12`
+		date bd:01.01.1970
+		filepath file:/home/user/.bashrc
+		link
+			hyperlink url:example.com
+			special doi:10.6084/m9.figshare.12452597
+		money cost:100R,245$
+		numeric pi:3.141592,<350
+		old url-old:run5.ru
+		percentage p:23%
+		place hq:Oslo
+		reference root:tabtree place:cities/Gothenburg
+		specialword status:<exists> exists:<t>
+		string text:"some text"
+		time bd:19:45,~8:00sa
+	comment ; anything after semicolon

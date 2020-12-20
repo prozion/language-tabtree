@@ -1,0 +1,99 @@
+; Atom follows TextMate conventions: https://macromates.com/manual/en/language_grammars#naming_conventions
+<language> example:racket
+	boolean
+		language
+			constant
+	comment
+		line
+			double-dash
+			semicolon
+		block
+			documentation
+	constant
+		numeric d:"those which represent numbers, e.g. 42, 1.3f, 0x4AB1U."
+		character d:"those which represent characters, e.g. &lt;, \e, \031"
+			escape d:"escape sequences like \e"
+				slash
+		language d:"constants provided by the language like true, false, nil, YES, NO, etc."
+		keyword ex:`<#:foo>`
+		other
+			database-name
+	cursor
+	entity
+		name
+			function ex:`(define (<myfunction> ...))`
+			type
+			tag
+			section
+		other
+	keyword
+		control ex:`(<cond> ...)`
+		operator
+			comparison
+			concatenator
+			math
+			star
+		specialword
+		other ex-gr:keyword.other.drop.sql
+	markup
+		underline
+			link
+		bold
+		heading
+		italic
+		list
+			numbered
+			unnumbered
+		quote
+		raw
+		other
+			function ex:`(<myfunction> ...)`
+	meta
+		declaration
+			variable ex:`(define <a> ...)`
+	punctuation
+		definition
+			parameters
+				bracket
+					round
+						begin
+						end
+			section
+				bracket
+					round
+						begin
+			string
+				begin
+		separator
+			parameters
+				comma
+			period
+		terminator
+			statement
+		unmatched
+			bracket
+	storage
+		type
+	string
+		quoted
+			double
+		unquoted
+			herestring
+		interpolated
+		regexp
+		other
+			quoted
+				brackets
+	support
+			function
+				aggregate
+				math
+				module ; (require ...)
+				definition ; (define ...)
+				general ; (string-append ...)
+				scalar
+				string
+				window
+	invalid
+		illegal
+		deprecated

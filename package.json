@@ -1,11 +1,15 @@
 {
   "name": "language-tabtree",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Tabtree graph description syntax support for Atom",
   "repository": "https://github.com/prozion/language-tabtree",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prozion/language-tabtree.git"
   },
   "dependencies": {}
 }

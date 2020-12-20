@@ -1,0 +1,48 @@
+-- Preliminary definitions
+<CrLf> ::= '\r' '\n' | '\n';
+<Space> ::= ' ';
+<Tab> ::= '\t';
+allid ::= ( alnum | '_' | '-' | '+' | '/' | ':' | '.' )+;
+numprefix ::= ( 'K' | 'M' | 'G' | 'T' );
+AbsoluteValue ::= digit+ numprefix?;
+Value ::= ( '+' | '-' ) AbsoluteValue;
+Text ::= (( alnum | punct | ' ' ) - '"')+;
+
+-- Tabtree syntax
+Tabtree ::= (ExpressionLine | CommentLine)+;
+CommentLine ::= Comment <CrLf>;
+Comment ::= ";" Text;
+ExpressionLine ::= <Tab>* Subject <Space>+ Predicate ':' Objects (<Space>+ Predicate ':' Objects)* [<Space>* Comment] <CrLf>;
+Subject ::= Category | Supercategory | Instance;
+Category ::= (lower | (alnum | '_') lower) allid*;
+Supercategory ::= Category <Tab>;
+Instance ::= ( upper | '_' upper) allid*;
+Predicate ::= ( lower | '_' ) allid*;
+Objects ::= Object ("," Object)*;
+Object ::=  Code
+          | Date
+          | Filepath
+          | Link
+          | Money
+          | Numeric
+          | Old
+          | Percentage
+          | Reference
+          | Place
+          | Specialword
+          | String
+          | Time
+          ;
+Code ::= '`' Text '`';
+Date ::= Day '.' Month '.' Year | Day '.' Month | Month '.' Year | Year;
+Filepath ::= ( alnum | '/' | '_' | '-' | '@' | '~' | '.' | '$' )+;
+Link ::= alnum ( alnum | punct )+;
+Money ::= Value ("NOK" | "SEK" | "DKK" | "GBP" | "EUR" | "BYN" | "KZT" |"GEL" | "UAH" | "RUB" | "kr" | '$' | 'R' | 'E' | '£' | '€' | '₽' );
+Numeric ::= Value;
+Old ::= Object - Old;
+Percentage ::= ('-' | '+')  digit+ '%';
+Reference ::= allid+;
+Place ::= upper ( alpha | '_' )*;
+Specialword ::= '<' ("exists" | 't' | 'f' | "null" | "..." | "unique" | "others" | "none" | "empty" | "many" | "current" | "start" | "end" | "self" | "gen-id" | "yes" | "no" | "all" | "na" | "oos" | "source" | "sink" | "active" | "inactive" | "out-of-service" | "nothing" | "project" | "etc" | "opensource" ) '>';
+String ::= '"' Text '"' | "'" Text "'";
+Time ::= '~'? digit? digit ':' digit digit (( "PM" | "AM" ) | ('w' | 'h' | "mo" |"tu" | "we" | "th" | "fr" | "sa" |"su" | '-'))?;
