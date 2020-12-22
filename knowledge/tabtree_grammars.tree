@@ -4,7 +4,9 @@ tabtree
 		category
 		Instance
 		supercategory	
-	predicate
+	predicate id5::predicate_type:p1
+		predicate_id 
+		predicate_type
 	object
 		code hs:`sqrt . (* 3) $ 12`
 		date bd:01.01.1970

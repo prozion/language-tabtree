@@ -12,6 +12,7 @@ patterns: [
   { include: "#supercategory" }
   { include: "#category" }
 
+  { include: "#predicate_id" }
   { include: "#predicate" }
 
   { include: "#code" }
@@ -79,7 +80,14 @@ repository:
     patterns: [
       {
         name: "tabtree.predicate"
-        match: "(?<=\\s)(\\-?[^\"\t ]+?:)"
+        match: "(?<=\\s)(\\-?[^\"\t ]+?:)|(?<=::)(\\-?[^\"\t ]+?:)"
+      }
+    ]
+  predicate_id:
+    patterns: [
+      {
+        name: "tabtree.predicate.predicate_id"
+        match: "(?<=\\s)(\\-?[^\"\t :]+?::)"
       }
     ]
 

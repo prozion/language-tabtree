@@ -2,7 +2,8 @@
 .syntax--tabtree.syntax--subject.syntax--category { }
 .syntax--tabtree.syntax--subject.syntax--instance { font-weight: normal; }
 .syntax--tabtree.syntax--subject.syntax--supercategory { color: #09c5c8 }
-.syntax--tabtree.syntax--predicate { font-weight: normal; color: #a626a4; }
+.syntax--tabtree.syntax--predicate, .syntax--tabtree.syntax--predicate_type { font-weight: normal; color: #a626a4; }
+.syntax--tabtree.syntax--predicate.syntax--predicate_id { font-weight: normal; color: #DF0DDC; }
 .syntax--tabtree.syntax--object.syntax--code { color: #5E13B2; }
 .syntax--tabtree.syntax--object.syntax--date { color: #5E13B2; }
 .syntax--tabtree.syntax--object.syntax--filepath { color: #5E13B2; }
@@ -14,5 +15,5 @@
 .syntax--tabtree.syntax--object.syntax--percentage { color: #996633; font-weight: bold; }
 .syntax--tabtree.syntax--object.syntax--place { color: #986801; }
 .syntax--tabtree.syntax--object.syntax--specialword { color: #3651a9; }
-.syntax--tabtree.syntax--object.syntax--string { color: #3651a9; }
+.syntax--tabtree.syntax--object.syntax--string { color: #50a14f; }
 .syntax--tabtree.syntax--object.syntax--time { color: #5E13B2; }
