@@ -17,7 +17,9 @@ Subject ::= Category | Supercategory | Instance;
 Category ::= (lower | (alnum | '_') lower) allid*;
 Supercategory ::= Category <Tab>;
 Instance ::= ( upper | '_' upper) allid*;
-Predicate ::= ( lower | '_' ) allid*;
+Predicate ::= (PredicateId "::")? PredicateType;
+PredicateId ::= allid*;
+PredicateType ::= ( lower | '_' ) allid*;
 Objects ::= Object ("," Object)*;
 Object ::=  Code
           | Date
