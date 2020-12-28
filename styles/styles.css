@@ -6,7 +6,8 @@
 .syntax--tabtree.syntax--predicate.syntax--predicate_id { font-weight: normal; color: #DF0DDC; }
 .syntax--tabtree.syntax--object.syntax--code { color: #5E13B2; }
 .syntax--tabtree.syntax--object.syntax--date { color: #5E13B2; }
-.syntax--tabtree.syntax--object.syntax--filepath { color: #5E13B2; }
+.syntax--tabtree.syntax--object.syntax--filesystem_object.syntax--directory { font-weight: bold; color: #5E13B2; }
+.syntax--tabtree.syntax--object.syntax--filesystem_object.syntax--file { color: #5E13B2; }
 .syntax--tabtree.syntax--object.syntax--link.syntax--hyperlink { color: #0184bc; text-decoration: underline; }
 .syntax--tabtree.syntax--object.syntax--link.syntax--special { color: #5E13B2; }
 .syntax--tabtree.syntax--object.syntax--money { color: #e95649; }
@@ -17,3 +18,4 @@
 .syntax--tabtree.syntax--object.syntax--specialword { color: #3651a9; }
 .syntax--tabtree.syntax--object.syntax--string { color: #50a14f; }
 .syntax--tabtree.syntax--object.syntax--time { color: #5E13B2; }
+.syntax--tabtree.syntax--object.syntax--type { font-weight: bold; color: #986801; }

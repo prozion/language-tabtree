@@ -10,7 +10,9 @@ tabtree
 	object
 		code hs:`sqrt . (* 3) $ 12`
 		date bd:01.01.1970
-		filepath file:/home/user/.bashrc
+		filesystem_object
+			directory dir:/usr/doc
+			file file:/home/user/.bashrc
 		link
 			hyperlink url:example.com
 			special doi:10.6084/m9.figshare.12452597
@@ -23,4 +25,5 @@ tabtree
 		specialword status:<exists> exists:<t>
 		string text:"some text"
 		time bd:19:45,~8:00sa
+		type t:macromolecule
 	comment ; anything after semicolon

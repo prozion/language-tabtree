@@ -18,7 +18,8 @@ patterns: [
   { include: "#code" }
   { include: "#comment" }
   { include: "#date" }
-  { include: "#filepath" }
+  { include: "#directory" }
+  { include: "#file" }
   { include: "#hyperlink" }
   { include: "#money" }
   { include: "#numeric" }
@@ -29,6 +30,7 @@ patterns: [
   { include: "#specialword" }
   { include: "#string" }
   { include: "#time" }
+  { include: "#type" }
 ]
 repository:
   supercategory:
@@ -67,12 +69,12 @@ repository:
     patterns: [
       {
         name: "tabtree.subject.instance"
-        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_\\-\\(\\)/]*?)( \\b|$)"
+        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_?+\\-\\(\\)/]*?)( \\b|$)"
       }
       # if starts with a digit
       {
         name: "tabtree.subject.instance"
-        match: "^[\\t]*?([0-9]+?[A-Za-zА-Яа-я_\\-\\(\\)/]+?)( \\b|$)"
+        match: "^[\\t]*?([0-9]+?[A-Za-zА-Яа-я_?+\\-\\(\\)/]+?)( \\b|$)"
       }
     ]
 
@@ -129,10 +131,18 @@ repository:
 								(\\?|~|>)?(?=\\s)"
       }
     ]
-  filepath:
+  directory:
     patterns: [
       {
-        name: "tabtree.object.filepath"
+        name: "tabtree.object.filesystem_object.directory"
+        match: "(?<=dir:).*?(?=\\s)|\
+                (?<=folder:).*?(?=\\s|:)"
+      }
+    ]
+  file:
+    patterns: [
+      {
+        name: "tabtree.object.filesystem_object.file"
         match: "(?<=path:).*?(?=\\s|:)|(?<=city-en:).*?(?=\\s)|\
                 (?<=file:).*?(?=\\s|:)"
       }
@@ -143,48 +153,46 @@ repository:
         name: "tabtree.object.link.hyperlink"
         # match: "(?<=\")http.*?(?=\")"
         match: "(?<=blog:).*?(?=\\s)|\
-                (?<=dir:).*?(?=\\s)|\
                 (?<=dtd:).*?(?=\\s)|\
                 (?<=dsc:).*?(?=\\s)|\
-                (?<=doc:).*?(?=\\s)|\
+                (?<= doc:).*?(?=\\s)|\
                 (?<=email:).*?(?=\\s)|\
                 (?<=facebook:).*?(?=\\s)|\
-                (?<=fb:).*?(?=\\s)|\
-                (?<=file:).*?(?=\\s)|\
+                (?<= fb:).*?(?=\\s)|\
                 (?<=gitlab:).*?(?=\\s)|\
                 (?<=github:).*?(?=\\s)|\
                 (?<=gmail:).*?(?=\\s)|\
                 (?<=gplus:).*?(?=\\s)|\
                 (?<=is-defined-by:).*?(?=\\s)|\
-                (?<=iri:).*?(?=\\s)|\
+                (?<= iri:).*?(?=\\s)|\
                 (?<=imports:).*?(?=\\s)|\
-                (?<=insta:).*?(?=\\s)|\
+                (?<= insta:).*?(?=\\s)|\
                 (?<=instagram:).*?(?=\\s)|\
                 (?<=moikrug:).*?(?=\\s)|\
                 (?<=my-mail:).*?(?=\\s)|\
-                (?<=ns:).*?(?=\\s)|\
+                (?<= ns:).*?(?=\\s)|\
                 (?<=linkedin:).*?(?=\\s)|\
                 (?<=odnoklassniki:).*?(?=\\s)|\
-                (?<=ok:).*?(?=\\s)|\
-                (?<=owl:).*?(?=\\s)|\
+                (?<= ok:).*?(?=\\s)|\
+                (?<= owl:).*?(?=\\s)|\
                 (?<=rdf:).*?(?=\\s)|\
                 (?<=rss:).*?(?=\\s)|\
-                (?<=spec:).*?(?=\\s)|\
+                (?<= spec:).*?(?=\\s)|\
                 (?<=strava:).*?(?=\\s)|\
                 (?<=telegram:).*?(?=\\s)|\
-                (?<=tg:).*?(?=\\s)|\
+                (?<= tg:).*?(?=\\s)|\
                 (?<=twitter:).*?(?=\\s)|\
-                (?<=twi:).*?(?=\\s)|\
-                (?<=uri:).*?(?=\\s)|\
-                (?<=url:).*?(?=\\s)|\
-                (?<=vk:).*?(?=\\s)|\
-                (?<=vk-old:).*?(?=\\s)|\
+                (?<= twi:).*?(?=\\s)|\
+                (?<= uri:).*?(?=\\s)|\
+                (?<= url:).*?(?=\\s)|\
+                (?<=-url:).*?(?=\\s)|\
+                (?<= vk:).*?(?=\\s)|\
                 (?<=vkontakte:).*?(?=\\s)|\
                 (?<=wiki:).*?(?=\\s)|\
                 (?<=wikipedia:).*?(?=\\s)|\
-                (?<=xsd:).*?(?=\\s)|\
+                (?<= xsd:).*?(?=\\s)|\
                 (?<=xmlns:).*?(?=\\s)|\
-                (?<=yt:).*?(?=\\s)|\
+                (?<= yt:).*?(?=\\s)|\
                 (?<=youtube:).*?(?=\\s)
                 "
         # match: "(?<=\")http//[A-Za-z0-9\-/.]+?(?=\")"
@@ -234,6 +242,8 @@ repository:
       {
         name: "tabtree.object.link.special"
         match: "(?<=doi:).*?(?=\\s)|\
+                (?<=uoi:).*?(?=\\s)|\
+                (?<=usenet:).*?(?=\\s)|\
                 (?<=special-link:).*?(?=\\s)
                 "
       }
@@ -259,5 +269,15 @@ repository:
         name: "tabtree.object.time"
         # name: "support.function.general.racket"
         match: "~?([0-9x]?[0-9x]:)?[0-6x]?[0-9x]:([0-5x][0-9x])?(w|h|mo|tu|we|th|fr|sa|su|-)*"
+      }
+    ]
+  type:
+    patterns: [
+      {
+        name: "tabtree.object.type"
+        match: "(?<= t:).*?(?=\\s)|\
+                (?<= type:).*?(?=\\s)|\
+                (?<=-type:).*?(?=\\s)
+                "
       }
     ]
