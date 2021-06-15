@@ -52,7 +52,7 @@ repository:
       # if starts with a digit
       {
         name: "tabtree.subject.category"
-        match: "^[\\t]*?([0-9][a-zA-ZА-Яа-яё0-9_\\-\\(\\)\\?/]+?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
+        match: "^[\\t]*?([0-9\\-][A-Za-zА-Яа-яё0-9_\\-\\(\\)\\?/]+?)(?=(\\s+\\b|$|\\s+\"|\\s+\-|\\s+;))"
       }
       # for keyword with dots (makes possible to differ category from a date)
       {
@@ -69,12 +69,12 @@ repository:
     patterns: [
       {
         name: "tabtree.subject.instance"
-        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-я0-9_?+\\-\\(\\)/]*?)( \\b|$)"
+        match: "^[\\t]*?([A-ZА-Я][A-Za-zА-Яа-яё0-9_?+\\-\\(\\)/]*?)( \\b|$)"
       }
       # if starts with a digit
       {
         name: "tabtree.subject.instance"
-        match: "^[\\t]*?([0-9]+?[A-Za-zА-Яа-я_?+\\-\\(\\)/]+?)( \\b|$)"
+        match: "^[\\t]*?([0-9\\-]+?[A-ZА-Я][A-Za-zА-Яа-яё0-9_?+\\-\\(\\)/]+?)( \\b|$)"
       }
     ]
 
@@ -143,7 +143,10 @@ repository:
     patterns: [
       {
         name: "tabtree.object.filesystem_object.file"
-        match: "(?<=path:).*?(?=\\s|:)|(?<=city-en:).*?(?=\\s)|\
+        match: "(?<=path:).*?(?=\\s|:)|\
+                (?<=namespace:).*?(?=\\s|:)|\
+                (?<=ref:).*?(?=\\s|:)|\
+                (?<=tabtree:).*?(?=\\s|:)|\
                 (?<=file:).*?(?=\\s|:)"
       }
     ]
@@ -171,6 +174,7 @@ repository:
                 (?<=moikrug:).*?(?=\\s)|\
                 (?<=my-mail:).*?(?=\\s)|\
                 (?<= ns:).*?(?=\\s)|\
+                (?<=-ns:).*?(?=\\s)|\
                 (?<=linkedin:).*?(?=\\s)|\
                 (?<=odnoklassniki:).*?(?=\\s)|\
                 (?<= ok:).*?(?=\\s)|\
@@ -203,7 +207,7 @@ repository:
     patterns: [
       {
         name: "tabtree.object.money"
-        match: "[~<>]?[0-9]([0-9\\-,.]*?[0-9])?([GBMK]|[GBMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
+        match: "(?<=[:,])[~<>]?[0-9]([0-9\\-,.]*?[0-9])?([GBMK]|[GBMK]?(NOK|SEK|DKK|GBP|EUR|BYN|KZT|GEL|UAH|RUB|kr|[$RE]))"
       }
     ]
   numeric:
@@ -234,6 +238,7 @@ repository:
         match: "(?<=city:).*?(?=\\s|:)|(?<=city-en:).*?(?=\\s)|\
         (?<=town:).*?(?=\\s|:)|\
         (?<=hq:).*?(?=\\s|:)|\
+        (?<=ht:).*?(?=\\s|:)|\
         (?<=place:).*?(?=\\s|:)"
       }
     ]
@@ -252,7 +257,13 @@ repository:
     patterns: [
       {
         name: "tabtree.object.specialword"
-        match: "<(exists|t|f|null|\\.\\.\\.|unique|others|none|empty|many|current|start|end|self|gen-id|yes|no|all|na|oos|source|sink|active|inactive|out-of-service|nothing|project|etc|opensource|\\.|\\?)>"
+        match: "<(exists|t|true|f|false|null|\\.\\.\\.|unique|others|none|empty|current|start|end|self|gen-id|yes|no|all|na|oos|source|sink|active|inactive|out-of-service|nothing|project|etc|opensource|\\.|\\?)>"
+        # oos = out of service
+      }
+      # cardinality
+      {
+        name: "tabtree.object.specialword"
+        match: "<(zero|one|many|\\*|0|1|n)>"
         # oos = out of service
       }
     ]
@@ -267,8 +278,15 @@ repository:
     patterns: [
       {
         name: "tabtree.object.time"
-        # name: "support.function.general.racket"
         match: "~?([0-9x]?[0-9x]:)?[0-6x]?[0-9x]:([0-5x][0-9x])?(w|h|mo|tu|we|th|fr|sa|su|-)*"
+      }
+      {
+        name: "tabtree.object.time"
+        match: "(?<=time:).*?(?=\\s)|\
+                (?<=-time:).*?(?=\\s)|\
+                (?<=freq:).*?(?=\\s)|\
+                (?<=-freq:).*?(?=\\s)
+                "
       }
     ]
   type:
